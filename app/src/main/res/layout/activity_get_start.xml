@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/deep_orange_600"
+    android:orientation="vertical"
+    tools:context=".GetStart">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="304dp"
+        android:layout_height="327dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/get_start"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="11dp"
+            android:paddingTop="12dp"
+            android:text="Exclusive Offers"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:textAlignment="center"
+            android:textColor="@color/deep_orange_600"
+            android:textSize="22dp" />
+
+        <TextView
+            android:layout_width="349dp"
+            android:layout_height="51dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="170dp"
+            android:paddingLeft="11dp"
+            android:paddingTop="12dp"
+            android:text="Enjoy Lots of perks and discount"
+            android:textAlignment="center"
+            android:fontFamily="@font/poppins_lightitalic"
+            android:textColor="@color/text_secondary"
+            android:textSize="15dp" />
+
+
+        <Button
+            android:id="@+id/btnGetStart"
+            android:layout_width="154dp"
+            android:layout_height="39dp"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_orange"
+            android:text="Get Started"
+            android:layout_marginBottom="8dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@android:color/white"
+            android:textSize="15dp"
+            tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

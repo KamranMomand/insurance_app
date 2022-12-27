@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ProfileFragment">
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/background_design"-->
+<!--        >-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/btnBackArrow"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:padding="14dp"-->
+<!--            android:src="@drawable/back_arrow"-->
+<!--            />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:text="Profile"-->
+<!--            android:textColor="@color/text_secondary"-->
+<!--            android:textSize="18sp" />-->
+
+<!--    </RelativeLayout>-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/drawer_design"
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_profile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/ic_person"
+                android:layout_gravity="center"
+                app:civ_border_width="3dp"
+                app:civ_border_color="@color/white" />
+
+            <TextView
+                android:id="@+id/fullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:text="Kamran Khan"
+                android:textSize="20sp"
+
+                />
+
+            <TextView
+                android:id="@+id/txtMail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="kamrankhanmomand4@gmail.com"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="20dp"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+    <Button
+        android:id="@+id/btnProfileEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/btn_orange"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="Edit Profile"
+        android:textAllCaps="false"
+        android:textSize="15dp"
+        android:textColor="@color/white"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/profile_cardview">
+
+        <Button
+            android:id="@+id/btnAboutUs"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingStart="30dp"
+            android:layout_gravity="center"
+            android:text="About Us"
+            android:textSize="15dp"
+            android:textAllCaps="false"
+            android:paddingEnd="30dp"
+            android:background="@drawable/btn_profile"/>
+        <Button
+            android:id="@+id/btnPrivacyPolicy"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingStart="30dp"
+            android:layout_gravity="center"
+            android:text="Privacy Policy"
+            android:textSize="15dp"
+            android:textAllCaps="false"
+            android:paddingEnd="30dp"
+            android:background="@drawable/btn_profile"/>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingStart="30dp"
+        android:layout_gravity="center"
+        android:text="SignOut"
+        android:textSize="15dp"
+        android:textColorHint="@color/white"
+        android:drawableLeft="@drawable/ic_profile_logout"
+        android:textAllCaps="false"
+        android:paddingEnd="30dp"
+        android:background="@drawable/btn_profile"/>
+
+</LinearLayout>
