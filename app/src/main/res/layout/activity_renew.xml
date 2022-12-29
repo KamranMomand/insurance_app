@@ -34,11 +34,10 @@
     </RelativeLayout>
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerPolicy"
         android:layout_width="309dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
-        android:background="@drawable/background_input_field"
         android:padding="16dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,14 +49,15 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/poppins_bold"
         android:text="Select Policy Number :"
         android:textAlignment="center"
         android:textColor="@color/deep_orange_600"
-        android:fontFamily="@font/poppins_bold"
-        app:layout_constraintBottom_toTopOf="@+id/spinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        tools:ignore="MissingConstraints," />
 
     <Button
         android:id="@+id/btnPolicyNumber"

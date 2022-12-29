@@ -1,16 +1,13 @@
 package com.example.projectinsurance;
 
-import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -26,7 +23,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -34,8 +30,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -58,6 +52,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -85,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private String UserID;
-    private CircleImageView img;
+     CircleImageView img1;
     private TextView txtNameView,txtEmailView;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     private DatabaseReference reference;
@@ -96,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
     private FirebaseUser user;
-    User eventModel;
+    User User;
 
     @Override
     public void onBackPressed() {
@@ -114,46 +109,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
 
-//        //init permission
-//
-//        cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-//        storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-//
-//        //        init view
-//        img = findViewById(R.id.img);
-//
-//        //image
-////        img.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View view) {
-////                showImagePickerDialog();
-////
-////            }
-////        });
-
-//user image upload
-        img=findViewById(R.id.img);
+        img1=findViewById(R.id.imgCircle);
         txtNameView=findViewById(R.id.txtNameView);
         txtEmailView=findViewById(R.id.txtEMailView);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-        showCurrentUser();
+        user=auth.getCurrentUser();
+        showCurrentUser(user.getUid());
 
 //        img.setOnClickListener(v -> {
 //
 //            uploadEvent();
-//        });
-
-//        img.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setType("image/*");
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                startActivityForResult(intent,200);
-//            }
 //        });
 //user image upload
         DrawerLayout drawer = binding.drawerLayout;
@@ -263,157 +231,34 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    private void showImagePickerDialog() {
-//        //option for dialog
-//        String options[] = {"Camera", "Gallery"};
-//
-//        //Alert Dialog Builder
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        //set title
-//        builder.setTitle("Choose An option");
-//        builder.setItems(options, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int i) {
-//                //handle item click
-//                if (i == 0) { //start from 0 index
-//                    //camera selected
-//                    if (!checkCameraPermission()) {
-//                        //request camera permission
-//                        requestCameraPermission();
-//                    } else {
-//                        pickFromCamera();
-//                    }
-//
-//                } else if (i == 1) {
-//                    //Gallery selected
-//                    if (!checkStoragePermission()) {
-//                        //request storage permission
-//                        requestStoragePermission();
-//                    } else {
-//                        pickFromGallery();
-//                    }
-//                }
-//
-//            }
-//        }).create().show();
-//    }
-//
-//    private void pickFromGallery() {
-//        //intent for taking image from Gallery
-//        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
-//        galleryIntent.setType("image/*"); // only image
-//
-//        startActivityForResult(galleryIntent, IMAGE_FROM_GALLERY_CODE);
-//    }
-//
-//    private void pickFromCamera() {
-//
-//        //contentValues for image info
-//        ContentValues values = new ContentValues();
-//        values.put(MediaStore.Images.Media.TITLE, "IMAGE_TITLE");
-//        values.put(MediaStore.Images.Media.DESCRIPTION, "IMAGE_DETAILS");
-//
-//        // save image Uri
-//        imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-//
-//        // intent to open camera
-//        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-//
-//        startActivityForResult(cameraIntent, IMAGE_FROM_CAMERA_CODE);
-//
-//    }
-//
-//    private boolean checkStoragePermission() {
-//        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
-//        return result;
-//
-//    }
-//
-//    private void requestStoragePermission() {
-//        ActivityCompat.requestPermissions(this, storagePermission, STORAGE_PERMISSION_CODE);
-//
-//    }
-//
-//    private boolean checkCameraPermission() {
-//        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
-//        boolean result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
-//        return result & result1;
-//
-//    }
-//
-//    private void requestCameraPermission() {
-//        ActivityCompat.requestPermissions(this, cameraPermission, CAMERA_PERMISSION_CODE); //Handle request permission on override method
-//
-//    }
-//
-//    //handle request permission
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//
-//        switch (requestCode) {
-//            case CAMERA_PERMISSION_CODE:
-//                if (grantResults.length > 0) {
-//
-//                    //if all permission allowed return true, otherwise false
-//                    boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-//                    boolean storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-//
-//                    if (cameraAccepted && storageAccepted) {
-//                        //Both permission granted
-//                        pickFromCamera();
-//                    } else {
-//                        // permission not granted
-//                        Toast.makeText(getApplicationContext(), "Camera & Storage Needed..", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//                break;
-//
-//            case STORAGE_PERMISSION_CODE:
-//                if (grantResults.length > 0) {
-//
-//                    //if all permission allowed return true, otherwise false
-//                    boolean storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-//
-//                    if (storageAccepted) {
-//                        //Storage permission granted
-//                        pickFromGallery();
-//                    } else {
-//                        // permission not granted
-//                        Toast.makeText(getApplicationContext(), "Storage Needed..", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//                break;
-//        }
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == RESULT_OK) {
-//            if (resultCode == IMAGE_FROM_GALLERY_CODE) {
-//                // Picked image from gallery
-//                //crop image
-//            }
-//        }
-//    }
-
-
     //user
-    private void showCurrentUser() {
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
-        UserID = user.getUid();
-        reference.child(UserID).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void showCurrentUser(String uid) {
+        reference = FirebaseDatabase.getInstance().getReference("Admin");
+        reference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot != null){
-                    User userProfile = snapshot.getValue(User.class);
-                    if (userProfile != null) {
-                        txtNameView.setText(userProfile.getUser_name());
-                        txtEmailView.setText(userProfile.getUser_email());
-                    }
+                    txtNameView=findViewById(R.id.txtNameView);
+                    txtEmailView=findViewById(R.id.txtEMailView);
+
+                    img1=findViewById(R.id.imgCircle);
+                        txtNameView.setText(String.valueOf(snapshot.child("name").getValue()));
+                        txtEmailView.setText(String.valueOf(snapshot.child("email").getValue()));
+
+                    img1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+//                            Toast.makeText(MainActivity.this, "img clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent,200);
+                        }
+                    });
+
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "No Data Found", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -435,32 +280,33 @@ public class MainActivity extends AppCompatActivity {
 
         user=auth.getCurrentUser();
         storage=FirebaseStorage.getInstance();
-        StorageReference uploader=storage.getReference("User_image_"+new Random().nextInt(6000)+user.getUid());
-        uploader.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                uploader.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        StorageReference uploader=storage.getReference("User_image_"+new Random().nextInt(89999)+user.getUid());
+        uploader.putFile(filePath)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onSuccess(Uri uri) {
-                        reference = FirebaseDatabase.getInstance().getReference();
-                        user=auth.getCurrentUser();
-                        String key = reference.push().getKey();
-                        reference.child("Events").child(key).setValue(eventModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        uploader.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    dialog.dismiss();
-                                    reference.child("Events").child(key).child("Participant").setValue(eventModel);
-                                    Toast.makeText(MainActivity.this, "Image Sent Successfully...", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                dialog.dismiss();
-                                Toast.makeText(MainActivity.this, "Something went wrong...."+e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                            public void onSuccess(Uri uri) {
+                                reference = FirebaseDatabase.getInstance().getReference("Admin");
+                                HashMap map = new HashMap();
+                                map.put("imgUri",uri.toString());
+                                reference.child(user.getUid()).setValue(map)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(task.isSuccessful()){
+                                                    dialog.dismiss();
+                                                    Toast.makeText(MainActivity.this, "Upload Success", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                dialog.dismiss();
+                                                Toast.makeText(MainActivity.this, "Something went wrong...."+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                     }
                 });
             }
@@ -476,8 +322,7 @@ public class MainActivity extends AppCompatActivity {
             try{
                 InputStream inputStream = getContentResolver().openInputStream(filePath);
                 bitmap= BitmapFactory.decodeStream(inputStream);
-                img.setImageBitmap(bitmap);
-                img.setVisibility(View.VISIBLE);
+                img1.setImageBitmap(bitmap);
                 uploadEvent();
             }catch (Exception ex)
             {

@@ -82,7 +82,6 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         //return inflater.inflate(R.layout.fragment_profile, container, false);
 
-        showCurrentUser();
         binding.btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +90,6 @@ public class ProfileFragment extends Fragment {
                 builder1.setMessage("Are You Sure You Want To Sign Out");
                 builder1.setIcon(R.drawable.ic_warning);
                 builder1.setCancelable(true);
-
                 builder1.setPositiveButton(
                         "Yes",
                         new DialogInterface.OnClickListener() {
@@ -101,7 +99,6 @@ public class ProfileFragment extends Fragment {
                                 startActivity(new Intent(getContext(), GetStart.class));
                             }
                         });
-
                 builder1.setNegativeButton(
                         "No",
                         new DialogInterface.OnClickListener() {
@@ -109,7 +106,6 @@ public class ProfileFragment extends Fragment {
                                 dialog.cancel();
                             }
                         });
-
                 AlertDialog alert11 = builder1.create();
                 alert11.show();
             }
@@ -138,32 +134,4 @@ public class ProfileFragment extends Fragment {
         return binding.getRoot();
 
     }
-
-    public void showCurrentUser() {
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("User");
-
-        UserID = user.getUid();
-        reference.child(UserID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot != null) {
-                    User userProfile = snapshot.getValue(User.class);
-                    if (userProfile != null) {
-                        binding.fullName.setText(userProfile.getUser_name());
-                        binding.txtMail.setText(userProfile.getUser_email());
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "" + error, Toast.LENGTH_LONG).show();
-            }
-        });
-
-    }
-
-
 }

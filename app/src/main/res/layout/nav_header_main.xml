@@ -22,7 +22,7 @@
 <!--        app:srcCompat="@drawable/ic_person" />-->
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img"
+        android:id="@+id/imgCircle"
         android:layout_width="80dp"
         android:layout_height="90dp"
         android:src="@drawable/ic_person"
