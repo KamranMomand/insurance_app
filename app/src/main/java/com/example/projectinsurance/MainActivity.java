@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         user=auth.getCurrentUser();
         showCurrentUser(user.getUid());
 
-//        img.setOnClickListener(v -> {
+//        img1.setOnClickListener(v -> {
 //
 //            uploadEvent();
 //        });
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
 
     //user
     private void showCurrentUser(String uid) {
-        reference = FirebaseDatabase.getInstance().getReference("Admin");
+        reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
                         uploader.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                reference = FirebaseDatabase.getInstance().getReference("Admin");
+                                reference = FirebaseDatabase.getInstance().getReference("Users");
                                 HashMap map = new HashMap();
                                 map.put("imgUri",uri.toString());
                                 reference.child(user.getUid()).setValue(map)

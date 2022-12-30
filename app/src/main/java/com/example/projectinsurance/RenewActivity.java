@@ -69,13 +69,13 @@ public class RenewActivity extends AppCompatActivity {
         btnPolicyNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),PackageActivity.class));
+                startActivity(new Intent(getApplicationContext(),PackageList.class));
             }
         });
     }
 
     private void getPolicy() {
-        reference = database.getReference("Renew");
+        reference = database.getReference("User Policies");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

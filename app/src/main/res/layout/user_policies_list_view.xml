@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/card_view"
+        android:elevation="40dp"
+        android:paddingBottom="20dp"
+        tools:ignore="MissingConstraints">
+
+
+        <TextView
+            android:id="@+id/holderID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Holder Name"
+            android:visibility="gone"
+            android:textColor="@color/deep_orange_600"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/holderNameView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Holder Name"
+            android:textColor="@color/deep_orange_600"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/policyNumberView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Policy No"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/categoryView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="45dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Policy Type"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/insuranceDateView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="65dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Insurance Date"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/dueDateView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="85dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Due Date"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/productView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="105dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Product"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
+
+
+        <TextView
+            android:id="@+id/userPoliciesID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="100dp"
+            android:text="User Policies ID"
+            android:textSize="18sp"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
+
+        <!--            <Button-->
+        <!--                android:id="@+id/btnBuyNow"-->
+        <!--                android:layout_width="120dp"-->
+        <!--                android:layout_height="40dp"-->
+        <!--                android:layout_gravity="right"-->
+        <!--                android:layout_marginTop="340dp"-->
+        <!--                android:layout_marginRight="30dp"-->
+        <!--                android:layout_marginBottom="20dp"-->
+        <!--                android:background="@drawable/btn_orange"-->
+        <!--                android:fontFamily="@font/poppins_medium"-->
+        <!--                android:text="Buy Now"-->
+        <!--                android:textColor="@android:color/white"-->
+        <!--                tools:ignore="MissingConstraints" />-->
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

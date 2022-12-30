@@ -31,10 +31,11 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileFragment extends Fragment {
 
     FragmentProfileBinding binding;
-    private DatabaseReference reference;
-    private FirebaseUser user;
-    private String UserID;
     FirebaseAuth auth = FirebaseAuth.getInstance();
+    private DatabaseReference reference;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private FirebaseUser user;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -81,6 +82,11 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         //return inflater.inflate(R.layout.fragment_profile, container, false);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        user = auth.getCurrentUser();
+        showCurrentUser(user.getUid());
 
         binding.btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,5 +139,25 @@ public class ProfileFragment extends Fragment {
         });
         return binding.getRoot();
 
+    }
+
+    private void showCurrentUser(String uid) {
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot != null){
+                    binding.fullName.setText(String.valueOf(snapshot.child("name").getValue()));
+                    binding.txtMail.setText(String.valueOf(snapshot.child("email").getValue()));
+                }else {
+                    Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), ""+error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

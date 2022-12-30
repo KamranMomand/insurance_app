@@ -1,6 +1,7 @@
 package com.example.projectinsurance.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.projectinsurance.PackageList;
+import com.example.projectinsurance.PaymentMethod;
 import com.example.projectinsurance.R;
 import com.example.projectinsurance.models.PackageModel;
 
@@ -38,12 +41,18 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.PackageV
 
     @Override
     public void onBindViewHolder(@NonNull PackageAdapter.PackageViewHolder holder, int position) {
-        holder.planeId.setText(packageModelArrayList.get(position).getPlane_id());
-        holder.healthInsurance.setText(packageModelArrayList.get(position).getPolicy_type());
-        holder.duration.setText(packageModelArrayList.get(position).getDuration());
-        holder.monthlyAmount.setText(packageModelArrayList.get(position).getMonthly_amount());
-        holder.otherAmount.setText(packageModelArrayList.get(position).getOther_payment());
-        holder.benifits.setText(packageModelArrayList.get(position).getBenefits());
+        holder.planeId.setText(String.format("id %s",packageModelArrayList.get(position).getPlane_id()));
+        holder.healthInsurance.setText(String.format("POLICY TYPE : %s",packageModelArrayList.get(position).getPolicy_type()));
+        holder.duration.setText(String.format("DURATION : %s",packageModelArrayList.get(position).getDuration()));
+        holder.monthlyAmount.setText(String.format("MONTHLY AMOUNT : %s",packageModelArrayList.get(position).getMonthly_amount()));
+        holder.otherAmount.setText(String.format("OTHER AMOUNT : %s",packageModelArrayList.get(position).getOther_payment()));
+        holder.benifits.setText(String.format("BENEFITS : %s:",packageModelArrayList.get(position).getBenefits()));
+        holder.btnBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, PaymentMethod.class));
+            }
+        });
     }
 
     @Override

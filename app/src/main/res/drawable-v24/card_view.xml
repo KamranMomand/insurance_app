@@ -7,7 +7,7 @@
         android:color="@color/white"/>
 
     <stroke
-        android:color="@color/text_secondary"
+        android:color="@color/black"
         android:width="1dp"/>
     <corners
         android:radius="90dp"/>

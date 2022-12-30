@@ -3,127 +3,114 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_design"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/backicon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="14dp"
-            android:src="@drawable/back_arrow" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Packages"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-    </RelativeLayout>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/card_view"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
 
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Health Insurance :"
-            android:textColor="@color/deep_orange_600"
-            android:textSize="18sp"
-            android:id="@+id/healthInsurance"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/duration"
-            android:text="Duration"
-            android:textSize="18sp"
-            tools:ignore="MissingConstraints" />
+            android:layout_margin="15dp"
+            android:background="@drawable/card_view"
+            android:elevation="40dp"
+            tools:ignore="MissingConstraints">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="40dp"
-            android:id="@+id/monthlyAmount"
-            android:text="Monthly Payment"
-            android:textSize="18sp"
-            tools:ignore="MissingConstraints" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="60dp"
-            android:text="Other Amount"
-            android:id="@+id/otherPayments"
-            android:textSize="18sp"
-            tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="80dp"
-            android:text="Benefits"
-            android:id="@+id/benefits"
-            android:textSize="18sp"
-            tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/healthInsurance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Health Insurance"
+                android:textColor="@color/deep_orange_600"
+                android:textSize="18sp"
+                tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="100dp"
-            android:text="planID"
-            android:id="@+id/planeID"
-            android:textSize="18sp"
-            android:visibility="gone"
-            tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/duration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="45dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Duration"
+                android:textSize="18sp"
+                tools:ignore="MissingConstraints" />
 
-        <Button
-            android:id="@+id/btnBuyNow"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/btn_orange"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Buy Now"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/monthlyAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="65dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Monthly Payment"
+                android:textSize="18sp"
+                tools:ignore="MissingConstraints" />
 
-    </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/otherPayments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="85dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Other Amount"
+                android:textSize="18sp"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/benefits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="105dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Benefits"
+                android:textSize="18sp"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/planeID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="100dp"
+                android:text="planID"
+                android:textSize="18sp"
+                android:visibility="gone"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/btnBuyNow"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="360dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/btn_orange"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Buy Now"
+                android:textColor="@android:color/white"
+                tools:ignore="MissingConstraints" />
+
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
