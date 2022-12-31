@@ -8,7 +8,9 @@ import androidx.fragment.app.FragmentManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -38,9 +40,8 @@ public class RenewActivity extends AppCompatActivity {
     private DatabaseReference reference;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
+    String policynumber = "";
 
-
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +67,24 @@ public class RenewActivity extends AppCompatActivity {
 
             }
         });
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
+                policynumber  = spinner.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         btnPolicyNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),PackageList.class));
+                Intent intent = new Intent(getApplicationContext(),PackageList.class);
+//                Log.d("Renew  poll",policynumber);
+                intent.putExtra("SelectPolNo",policynumber);
+                startActivity(intent);
             }
         });
     }
@@ -81,7 +96,10 @@ public class RenewActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot != null){
                     for(DataSnapshot data: snapshot.getChildren()){
-                        policy_noArrayList.add(String.valueOf(data.child("policy_no").getValue()));
+                        if(data.child("holderID").getValue().toString().equals(user.getUid())){
+                            policy_noArrayList.add(String.valueOf(data.child("policy_no").getValue()));
+                        }
+
                     }
                 }else {
                     Toast.makeText(RenewActivity.this, "Data Not Founded", Toast.LENGTH_SHORT).show();

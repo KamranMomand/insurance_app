@@ -41,16 +41,25 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.PackageV
 
     @Override
     public void onBindViewHolder(@NonNull PackageAdapter.PackageViewHolder holder, int position) {
-        holder.planeId.setText(String.format("id %s",packageModelArrayList.get(position).getPlane_id()));
+        String planeId = String.valueOf(packageModelArrayList.get(position).getPlans_id());
+        String duration= String .valueOf(packageModelArrayList.get(position).getDuration());
+        holder.planeId.setText(String.format("id %s",planeId));
         holder.healthInsurance.setText(String.format("POLICY TYPE : %s",packageModelArrayList.get(position).getPolicy_type()));
-        holder.duration.setText(String.format("DURATION : %s",packageModelArrayList.get(position).getDuration()));
+        holder.duration.setText(String.format("DURATION : %s",duration));
         holder.monthlyAmount.setText(String.format("MONTHLY AMOUNT : %s",packageModelArrayList.get(position).getMonthly_amount()));
         holder.otherAmount.setText(String.format("OTHER AMOUNT : %s",packageModelArrayList.get(position).getOther_payment()));
         holder.benifits.setText(String.format("BENEFITS : %s:",packageModelArrayList.get(position).getBenefits()));
+
         holder.btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, PaymentMethod.class));
+                Intent intent = new Intent(context, PaymentMethod.class);
+                intent.putExtra("plane_id",planeId);
+                intent.putExtra("duration",duration);
+                intent.putExtra("policyno",PackageList.PolNo);
+                intent.putExtra("policyid",PackageList.PolId);
+                context.startActivity(intent);
+
             }
         });
     }

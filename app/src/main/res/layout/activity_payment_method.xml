@@ -37,6 +37,7 @@
         android:layout_height="329dp"
         android:background="@drawable/background_design"
         android:orientation="vertical"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -60,7 +61,7 @@
         tools:ignore="MissingConstraints">
 
         <EditText
-            android:id="@+id/txtEmail"
+            android:id="@+id/dueDateReadText"
             android:layout_width="291dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -78,30 +79,33 @@
             android:textSize="18dp" />
 
         <EditText
-            android:id="@+id/txtPass1"
+            android:id="@+id/insuranceDateReadText"
             android:layout_width="291dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
             android:background="@drawable/background_input_field"
             android:drawablePadding="6.50dp"
+            android:textIsSelectable="false"
+            android:editable="false"
+            android:inputType="none"
             android:hint="Insurance Date"
-            android:inputType="textPassword"
             android:fontFamily="@font/poppins_regular"
             android:padding="13dp"
             android:textColor="@color/text_secondary"
             android:textColorHint="@color/text_secondary"
             android:textSize="18dp" />
+
         <EditText
-            android:id="@+id/txtPass2"
+            android:id="@+id/cardNumber"
             android:layout_width="291dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
             android:background="@drawable/background_input_field"
             android:drawablePadding="6.50dp"
-            android:hint="Enter Card Number"
-            android:inputType="textPassword"
+            android:hint="Enter Your Card Number"
+            android:inputType="text"
             android:fontFamily="@font/poppins_regular"
             android:padding="13dp"
             android:textColor="@color/text_secondary"
@@ -111,7 +115,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnPayNow"
         android:layout_width="259dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -1,10 +1,10 @@
 package com.example.projectinsurance.models;
 
 public class PackageModel {
-    String plane_id,policy_type,other_payment,monthly_amount,duration,benefits;
+    String plans_id, policy_type, other_payment, monthly_amount, duration, benefits;
 
-    public PackageModel(String plane_id, String policy_type, String other_payment, String monthly_amount, String duration, String benefits) {
-        this.plane_id = plane_id;
+    public PackageModel(String plans_id, String policy_type, String other_payment, String monthly_amount, String duration, String benefits) {
+        this.plans_id = plans_id;
         this.policy_type = policy_type;
         this.other_payment = other_payment;
         this.monthly_amount = monthly_amount;
@@ -12,12 +12,12 @@ public class PackageModel {
         this.benefits = benefits;
     }
 
-    public String getPlane_id() {
-        return plane_id;
+    public String getPlans_id() {
+        return plans_id;
     }
 
-    public void setPlane_id(String plane_id) {
-        this.plane_id = plane_id;
+    public void setPlans_id(String plans_id) {
+        this.plans_id = plans_id;
     }
 
     public String getPolicy_type() {

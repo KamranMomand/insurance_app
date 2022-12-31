@@ -13,6 +13,11 @@ public class Policy_No {
 
     }
 
+    public Policy_No(String policy_no, String category) {
+        this.policy_no = policy_no;
+        this.category = category;
+    }
+
     public Policy_No(String policy_id, String policy_no, String policy_holder, String product, String insurance_date, String due_date, String category) {
         this.policy_id = policy_id;
         this.policy_no = policy_no;
