@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.projectinsurance.adapter.UserPoliciesAdapter;
@@ -35,15 +36,16 @@ public class PaymentMethod extends AppCompatActivity {
 
     EditText dueDateReadText, insuranceDateReadText, cardNumber;
     Button btnPayNow, btnBuyNow;
-    String Plane_id, Duration,policy_id;
+    String Plane_id, Duration, policy_id;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
     public static String HOLDER_ID = "";
-    public static String HOLDER_NAME= "";
-    public static String CATEGORY= "";
-    public static String PRODUCT_NAME= "";
-    UserPoliciesModel  model;
+    public static String HOLDER_NAME = "";
+    public static String CATEGORY = "";
+    public static String PRODUCT_NAME = "";
+    UserPoliciesModel policiesModel;
+    ImageView backicon2;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -56,6 +58,15 @@ public class PaymentMethod extends AppCompatActivity {
         cardNumber = findViewById(R.id.cardNumber);
         btnPayNow = findViewById(R.id.btnPayNow);
         btnBuyNow = findViewById(R.id.btnBuyNow);
+        backicon2=findViewById(R.id.backicon2);
+
+        backicon2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PaymentMethod.this,PackageList.class);
+                startActivity(intent);
+            }
+        });
 
         Intent intent = getIntent();
         if (intent.getStringExtra("plane_id") != null) {
@@ -86,13 +97,12 @@ public class PaymentMethod extends AppCompatActivity {
                                 String exp = "";
                                 LocalDate expire = today.plusYears(Long.parseLong(duration));
                                 exp = expire.toString();
-
                                 dueDateReadText.setText(exp);
                             }
                         }
                     }
 
-                }else {
+                } else {
                     Toast.makeText(PaymentMethod.this, "No Data Found", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -114,44 +124,61 @@ public class PaymentMethod extends AppCompatActivity {
                 String currentDate = insuranceDateReadText.getText().toString();
 
 //                Toast.makeText(PaymentMethod.this, ""+PackageList.PolId, Toast.LENGTH_SHORT).show();
-                FirebaseAuth auth =FirebaseAuth.getInstance();
-                FirebaseUser user =auth.getCurrentUser();
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                FirebaseUser user = auth.getCurrentUser();
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User Policies");
                 reference.addValueEventListener(new ValueEventListener() {
+                    String hi;
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot data: snapshot.getChildren()){
+                        for (DataSnapshot data : snapshot.getChildren()) {
 //                            model = new UserPoliciesModel(String.valueOf(data.child("policy_id").getValue()),String.valueOf(data.child("policy_no").getValue()),String.valueOf(data.child("holderID").getValue()),String.valueOf(data.child("holderName").getValue()),String.valueOf(data.child("insurance_date").getValue()),String.valueOf(data.child("due_date").getValue()),String.valueOf(data.child("category").getValue()),String.valueOf(data.child("product").getValue()));;
-                            if(data.child("holderID").equals(user.getUid()) && data.child("policy_id").equals(PackageList.PolNo)){
-                                Toast.makeText(PaymentMethod.this, "Hogaya", Toast.LENGTH_SHORT).show();
+                            hi = String.valueOf(data.child("holderID").getValue());
+                             policy_id = String.valueOf(data.child("policy_id").getValue());
+                            Log.d("Holder id", hi);
+                            Log.d("Policy id", policy_id);
+                            Log.d("user id", user.getUid());
+                            Log.d("Pol No", PackageList.PolNo);
+
+                            if (hi.equals(user.getUid()) && policy_id.equals(data.getKey())) {
+                                Toast.makeText(PaymentMethod.this, "Data Getting", Toast.LENGTH_SHORT).show();
                                 HOLDER_ID = data.child("holderID").getValue().toString();
                                 HOLDER_NAME = data.child("holderName").getValue().toString();
                                 CATEGORY = data.child("category").getValue().toString();
                                 PRODUCT_NAME = data.child("product").getValue().toString();
+                                //                                Toast.makeText(PaymentMethod.this, "Searching Data hoder id "+HOLDER_ID+" holderName "+HOLDER_NAME+"category"+CATEGORY+"product"+PRODUCT_NAME, Toast.LENGTH_SHORT).show();
                             }
                         }
+
+                        policiesModel = new UserPoliciesModel(policy_id, PackageList.PolNo, HOLDER_ID, HOLDER_NAME, currentDate, updateDate, CATEGORY, PRODUCT_NAME);
+
+                        Log.d("My data policy ", policy_id);
+                        Log.d("My data policy ",HOLDER_NAME);
+                        Log.d("My data policy ", PRODUCT_NAME);
+
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Updated_User_Policy");
+                        ref.push().setValue(policiesModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(PaymentMethod.this, "Your POLICY is Updated", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentMethod.this, MainActivity.class));
+                                } else {
+                                    Toast.makeText(PaymentMethod.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(PaymentMethod.this, HomeFragment.class));
+                                }
+                            }
+                        });
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
-                        Toast.makeText(PaymentMethod.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PaymentMethod.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                UserPoliciesModel policiesModel = new UserPoliciesModel(policy_id,PackageList.PolNo,HOLDER_ID,HOLDER_NAME,currentDate,updateDate,CATEGORY,PRODUCT_NAME);
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Updated_User_Policy");
-                ref.push().setValue(policiesModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(PaymentMethod.this, "USER NEW POLICY ADDED", Toast.LENGTH_SHORT).show();
-                        }else {
-                            Toast.makeText(PaymentMethod.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(PaymentMethod.this, HomeFragment.class));
-                        }
-                    }
-                });
+
             }
         });
     }

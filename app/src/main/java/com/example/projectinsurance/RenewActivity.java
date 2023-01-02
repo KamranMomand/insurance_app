@@ -54,6 +54,7 @@ public class RenewActivity extends AppCompatActivity {
 //        getUserProfile(user.getUid());
 
 
+
         getPolicy();
 
         backicon.setOnClickListener(new View.OnClickListener() {
@@ -61,9 +62,12 @@ public class RenewActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.replace()
-                Fragment fragment = new HomeFragment();
-                FragmentManager manager = getSupportFragmentManager();
-                manager.beginTransaction().replace(R.id.renew,fragment).commit();
+                Intent intent = new Intent(RenewActivity.this,MainActivity.class);
+                intent.putExtra("fragment","home");
+                startActivity(intent);
+//                Fragment fragment = new HomeFragment();
+//                FragmentManager manager = getSupportFragmentManager();
+//                manager.beginTransaction().replace(R.id.renew,fragment).commit();
 
             }
         });

@@ -58,6 +58,10 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.PackageV
                 intent.putExtra("duration",duration);
                 intent.putExtra("policyno",PackageList.PolNo);
                 intent.putExtra("policyid",PackageList.PolId);
+                intent.putExtra("holderID",PackageList.HOLDER_ID);
+                intent.putExtra("holderName",PackageList.HOLDER_NAME);
+                intent.putExtra("category",PackageList.CATEGORY);
+                intent.putExtra("product",PackageList.PRODUCT_NAME);
                 context.startActivity(intent);
 
             }

@@ -9,6 +9,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.projectinsurance.adapter.PackageAdapter;
@@ -26,10 +28,16 @@ public class PackageList extends AppCompatActivity {
     PackageAdapter adapter;
     Policy_No model;
     PackageModel model1;
-//    public static String
+    //    public static String
     public static String PolNo = "";
     public static String PolType = "";
-    public static String PolId= "";
+    public static String PolId = "";
+    public static String HOLDER_ID = "";
+    public static String HOLDER_NAME = "";
+    public static String CATEGORY = "";
+    public static String PRODUCT_NAME = "";
+
+    ImageView backicon1;
 
     ArrayList<PackageModel> packageModelArrayList = new ArrayList<PackageModel>();
 
@@ -38,6 +46,16 @@ public class PackageList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_package_list);
+
+        backicon1=findViewById(R.id.backicon1);
+        backicon1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PackageList.this,RenewActivity.class);
+                startActivity(intent);
+            }
+        });
+
         recView = findViewById(R.id.packageListRecView);
         Intent intent = getIntent();
         if (intent.getStringExtra("SelectPolNo") != "") {
@@ -45,19 +63,22 @@ public class PackageList extends AppCompatActivity {
             PolNo = intent.getStringExtra("SelectPolNo");
 //            Log.d("packagelist poll",PolNo);
         }
-//        getPloTypeName(PolNo);
         if (PolNo.equals("")) {
-            Toast.makeText(this, "Poll No Is Null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Policy No is Null", Toast.LENGTH_SHORT).show();
         } else {
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("User Policies");
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot data : snapshot.getChildren()) {
-//                    model = new Policy_No()
                         if (String.valueOf(data.child("policy_no").getValue()).equals(PolNo)) {
                             PolType = String.valueOf(data.child("category").getValue());
                             PolId = String.valueOf(data.child("policy_id").getValue());
+//                           // Kamran///
+                            HOLDER_ID = String.valueOf(data.child("holderID").getValue());
+                            HOLDER_NAME = String.valueOf(data.child("holderName").getValue());
+                            CATEGORY = String.valueOf(data.child("policyType").getValue());
+                            PRODUCT_NAME = String.valueOf(data.child("product").getValue());
                             if (PolType.equals("")) {
                                 Toast.makeText(PackageList.this, "getPackageList polType is Null", Toast.LENGTH_SHORT).show();
                             } else {
@@ -74,7 +95,6 @@ public class PackageList extends AppCompatActivity {
 //                                                Log.d("polType", PolType);
                                                 if (pT.equals(PolType)) {
                                                     model1 = new PackageModel(String.valueOf(data.child("plans_id").getValue()), String.valueOf(data.child("policy_type").getValue()), String.valueOf(data.child("other_payment").getValue()), String.valueOf(data.child("monthly_amount").getValue()), String.valueOf(data.child("duration").getValue()), String.valueOf(data.child("benefits").getValue()));
-//                            model1 = data.getValue(PackageModel.class);
                                                     packageModelArrayList.add(model1);
                                                 }
                                             }
@@ -83,7 +103,6 @@ public class PackageList extends AppCompatActivity {
                                         recView.setHasFixedSize(true);
                                         recView.setLayoutManager(new LinearLayoutManager(PackageList.this));
                                         recView.setAdapter(adapter);
-//                    adapter.notifyDataSetChanged();
                                     }
 
                                     @Override
@@ -95,6 +114,7 @@ public class PackageList extends AppCompatActivity {
                         }
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     Toast.makeText(PackageList.this, "Poll Type Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
@@ -103,14 +123,4 @@ public class PackageList extends AppCompatActivity {
         }
 
     }
-
-//
-//    private void getPloTypeName(String polNo) {
-//
-//    }
-//
-//    private void getPackageList(String polType) {
-//
-//    }
-
 }

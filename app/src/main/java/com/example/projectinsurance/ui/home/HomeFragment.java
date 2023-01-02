@@ -71,9 +71,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot != null){
-
-
-
                     binding.txtNameView1.setText(String.valueOf(snapshot.child("name").getValue()));
                     binding.txtEmailView1.setText(String.valueOf(snapshot.child("email").getValue()));
                 }else {

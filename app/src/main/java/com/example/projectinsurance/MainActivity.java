@@ -95,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
         } else {
             super.onBackPressed();
         }
@@ -108,6 +108,12 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
+
+
+//        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.putExtra("EXIT", true);
+//        startActivity(intent);
 
         img1=findViewById(R.id.imgCircle);
         txtNameView=findViewById(R.id.txtNameView);
@@ -141,8 +147,17 @@ public class MainActivity extends AppCompatActivity {
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 Fragment selectedFragment = null;
+
+                Intent intent = getIntent();
+                if (intent.getStringExtra("fragment") != null) {
+                    if(intent.getStringExtra("fragment") == "home"){
+                        selectedFragment = new HomeFragment();
+                    }
+//                    Plane_id = (intent.getStringExtra("fragment"));
+
+                }
+
 
                 switch (item.getItemId()) {
                     case R.id.nav_home1:
@@ -180,6 +195,20 @@ public class MainActivity extends AppCompatActivity {
         navigationView1.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment selectedFragment = null;
+
+                Intent intent = getIntent();
+                if (intent.getStringExtra("fragment") != null) {
+                    if(intent.getStringExtra("fragment") == "home"){
+                        selectedFragment = new HomeFragment();
+                    }else if (intent.getStringExtra("fragment") == "profile"){
+                        selectedFragment = new ProfileFragment();
+                    }else if(intent.getStringExtra("fragment") == "about"){
+                        selectedFragment = new ProfileFragment();
+                    }else{
+
+                    }
+                }
 
                 switch (item.getItemId()) {
 

@@ -14,7 +14,7 @@ import com.example.projectinsurance.databinding.ActivityEditProfileBinding;
 
 public class Edit_Profile extends AppCompatActivity {
 
-    ImageView backicon;
+    ImageView backicon3;
 
     ActivityEditProfileBinding binding;
 
@@ -25,16 +25,19 @@ public class Edit_Profile extends AppCompatActivity {
 
                 binding= ActivityEditProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        backicon=findViewById(R.id.backicon);
+        backicon3=findViewById(R.id.backicon3);
 
-        backicon.setOnClickListener(new View.OnClickListener() {
+        backicon3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                fragmentTransaction.replace()
-                Fragment fragment = new ProfileFragment();
-                FragmentManager manager = getSupportFragmentManager();
-                manager.beginTransaction().replace(R.id.editProfile,fragment).commit();
+                Intent intent = new Intent(Edit_Profile.this,MainActivity.class);
+                intent.putExtra("fragment","profile");
+                startActivity(intent);
+//                Fragment fragment = new ProfileFragment();
+//                FragmentManager manager = getSupportFragmentManager();
+//                manager.beginTransaction().replace(R.id.editProfile,fragment).commit();
 
             }
         });
