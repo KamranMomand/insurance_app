@@ -14,10 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.projectinsurance.MainActivity;
-import com.example.projectinsurance.R;
 import com.example.projectinsurance.RenewActivity;
-import com.example.projectinsurance.User;
 import com.example.projectinsurance.databinding.FragmentHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

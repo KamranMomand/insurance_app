@@ -7,29 +7,86 @@
     tools:context=".Edit_Profile"
     android:id="@+id/editProfile">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_design"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/backicon3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="14dp"
+            android:src="@drawable/back_arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_design"
-            tools:ignore="MissingConstraints">
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Edit Profile"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
-            <ImageView
-                android:id="@+id/backicon3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:padding="14dp"
-                android:src="@drawable/back_arrow"
-                />
+    </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Edit Profile"
-                android:fontFamily="@font/poppins_medium"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="301dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/background_input_field"
+        android:drawablePadding="6.50dp"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Enter Name "
+        android:inputType="textPersonName"
+        android:padding="13dp"
+        android:textColor="@color/text_secondary"
+        android:textColorHint="@color/text_secondary"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout3"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout3"
+        tools:ignore="MissingConstraints" />
+    <EditText
+        android:id="@+id/editEmail"
+        android:layout_width="301dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="122dp"
+        android:background="@drawable/background_input_field"
+        android:drawablePadding="6.50dp"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Enter Email "
+        android:inputType="textEmailAddress"
+        android:padding="13dp"
+        android:textColor="@color/text_secondary"
+        android:textColorHint="@color/text_secondary"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout3"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout3"
+        tools:ignore="MissingConstraints" />
 
-        </RelativeLayout>
+    <Button
+        android:id="@+id/btnUpdateProfile"
+        android:layout_width="259dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="116dp"
+        android:background="@drawable/btn_orange"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingTop="5dp"
+        android:text="Update"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editEmail"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

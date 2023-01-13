@@ -5,112 +5,106 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ScrollView
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="15dp"
+        android:background="@drawable/card_view"
+        android:elevation="40dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
 
-        <androidx.cardview.widget.CardView
+        <TextView
+            android:id="@+id/healthInsurance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:background="@drawable/card_view"
-            android:elevation="40dp"
-            tools:ignore="MissingConstraints">
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Health Insurance"
+            android:textColor="@color/deep_orange_600"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
 
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="45dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Duration"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
 
-            <TextView
-                android:id="@+id/healthInsurance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="25dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Health Insurance"
-                android:textColor="@color/deep_orange_600"
-                android:textSize="18sp"
-                tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/monthlyAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="65dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Monthly Payment"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
 
-            <TextView
-                android:id="@+id/duration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="45dp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Duration"
-                android:textSize="18sp"
-                tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/otherPayments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="85dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Other Amount"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
 
-            <TextView
-                android:id="@+id/monthlyAmount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="65dp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Monthly Payment"
-                android:textSize="18sp"
-                tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/benefits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="105dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Benefits"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
 
-            <TextView
-                android:id="@+id/otherPayments"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="85dp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Other Amount"
-                android:textSize="18sp"
-                tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/planeID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="100dp"
+            android:text="planID"
+            android:textSize="18sp"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
 
-            <TextView
-                android:id="@+id/benefits"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="105dp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Benefits"
-                android:textSize="18sp"
-                tools:ignore="MissingConstraints" />
+        <Button
+            android:id="@+id/btnBuyNow"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="360dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/btn_orange"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Buy Now"
+            android:textColor="@android:color/white"
+            tools:ignore="MissingConstraints" />
 
-            <TextView
-                android:id="@+id/planeID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="100dp"
-                android:text="planID"
-                android:textSize="18sp"
-                android:visibility="gone"
-                tools:ignore="MissingConstraints" />
-
-            <Button
-                android:id="@+id/btnBuyNow"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_gravity="right"
-                android:layout_marginTop="360dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/btn_orange"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Buy Now"
-                android:textColor="@android:color/white"
-                tools:ignore="MissingConstraints" />
-
-        </androidx.cardview.widget.CardView>
-    </ScrollView>
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

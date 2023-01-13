@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.projectinsurance.ui.gallery.GalleryFragment;
 import com.example.projectinsurance.ui.home.HomeFragment;
 import com.example.projectinsurance.ui.slideshow.SlideshowFragment;
@@ -80,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private String UserID;
-     CircleImageView img1;
-    private TextView txtNameView,txtEmailView;
+    CircleImageView img1;
+    private TextView txtNameView, txtEmailView, txtPassView, txtIDView;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     private DatabaseReference reference;
     private FirebaseDatabase firebaseDatabase;
@@ -115,14 +116,16 @@ public class MainActivity extends AppCompatActivity {
 //        intent.putExtra("EXIT", true);
 //        startActivity(intent);
 
-        img1=findViewById(R.id.imgCircle);
-        txtNameView=findViewById(R.id.txtNameView);
-        txtEmailView=findViewById(R.id.txtEMailView);
+        img1 = findViewById(R.id.imgCircle);
+        txtNameView = findViewById(R.id.txtNameView);
+        txtPassView = findViewById(R.id.txtPassView);
+        txtIDView = findViewById(R.id.txtIdView);
+        txtEmailView = findViewById(R.id.txtEMailView);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-        user=auth.getCurrentUser();
+        user = auth.getCurrentUser();
         showCurrentUser(user.getUid());
 
 //        img1.setOnClickListener(v -> {
@@ -151,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = getIntent();
                 if (intent.getStringExtra("fragment") != null) {
-                    if(intent.getStringExtra("fragment") == "home"){
+                    if (intent.getStringExtra("fragment") == "home") {
                         selectedFragment = new HomeFragment();
                     }
 //                    Plane_id = (intent.getStringExtra("fragment"));
@@ -199,13 +202,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = getIntent();
                 if (intent.getStringExtra("fragment") != null) {
-                    if(intent.getStringExtra("fragment") == "home"){
+                    if (intent.getStringExtra("fragment") == "home") {
                         selectedFragment = new HomeFragment();
-                    }else if (intent.getStringExtra("fragment") == "profile"){
+                    } else if (intent.getStringExtra("fragment") == "profile") {
                         selectedFragment = new ProfileFragment();
-                    }else if(intent.getStringExtra("fragment") == "about"){
+                    } else if (intent.getStringExtra("fragment") == "about") {
                         selectedFragment = new ProfileFragment();
-                    }else{
+                    } else {
 
                     }
                 }
@@ -266,27 +269,41 @@ public class MainActivity extends AppCompatActivity {
         reference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot != null){
-                    txtNameView=findViewById(R.id.txtNameView);
-                    txtEmailView=findViewById(R.id.txtEMailView);
+                if (snapshot != null) {
+                    txtNameView = findViewById(R.id.txtNameView);
+                    txtEmailView = findViewById(R.id.txtEMailView);
+                    txtPassView = findViewById(R.id.txtPassView);
+                    txtIDView = findViewById(R.id.txtIdView);
 
-                    img1=findViewById(R.id.imgCircle);
-                        txtNameView.setText(String.valueOf(snapshot.child("name").getValue()));
-                        txtEmailView.setText(String.valueOf(snapshot.child("email").getValue()));
-
+                    img1 = findViewById(R.id.imgCircle);
+                    txtNameView.setText(String.valueOf(snapshot.child("name").getValue()));
+                    txtEmailView.setText(String.valueOf(snapshot.child("email").getValue()));
+                    txtIDView.setText(String.valueOf(snapshot.child("userID").getValue()));
+                    txtPassView.setText(String.valueOf(snapshot.child("password").getValue()));
+                    Uri url = Uri.parse(String.valueOf(snapshot.child("imgUri")));
+//                    if(String.valueOf(snapshot.child("imgUri"))!=null){
+//                        Glide.with(getApplicationContext()).load(String.valueOf(snapshot.child("imgUri"))).into(img1);
+//                    Glide
+//                            .with(MainActivity.this)
+//                            .load(url)
+//                            .centerCrop()
+//                            .placeholder(R.drawable.ic_person)
+//                            .into(img1);
+//                    img1.setImageURI(Uri.parse());
+//
+//                    }
                     img1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 //                            Toast.makeText(MainActivity.this, "img clicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent,200);
+                            Intent intent = new Intent();
+                            intent.setType("image/*");
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            startActivityForResult(intent, 200);
                         }
                     });
 
-                }
-                else {
+                } else {
                     Toast.makeText(MainActivity.this, "No Data Found", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -294,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Toast.makeText(MainActivity.this, ""+error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "" + error, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -307,9 +324,9 @@ public class MainActivity extends AppCompatActivity {
         dialog.setMessage("Please wait while uploading your Image...");
         dialog.show();
 
-        user=auth.getCurrentUser();
-        storage=FirebaseStorage.getInstance();
-        StorageReference uploader=storage.getReference("User_image_"+new Random().nextInt(89999)+user.getUid());
+        user = auth.getCurrentUser();
+        storage = FirebaseStorage.getInstance();
+        StorageReference uploader = storage.getReference("User_image_" + new Random().nextInt(89999) + user.getUid());
         uploader.putFile(filePath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -319,12 +336,16 @@ public class MainActivity extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 reference = FirebaseDatabase.getInstance().getReference("Users");
                                 HashMap map = new HashMap();
-                                map.put("imgUri",uri.toString());
-                                reference.child(user.getUid()).setValue(map)
+                                map.put("imgUri", uri.toString());
+                                map.put("email", txtEmailView.getText().toString());
+                                map.put("name", txtNameView.getText().toString());
+                                map.put("userID", txtIDView.getText().toString());
+                                map.put("password", txtPassView.getText().toString());
+                                reference.child(txtIDView.getText().toString()).setValue(map)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                if(task.isSuccessful()){
+                                                if (task.isSuccessful()) {
                                                     dialog.dismiss();
                                                     Toast.makeText(MainActivity.this, "Upload Success", Toast.LENGTH_SHORT).show();
                                                 }
@@ -333,33 +354,33 @@ public class MainActivity extends AppCompatActivity {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
                                                 dialog.dismiss();
-                                                Toast.makeText(MainActivity.this, "Something went wrong...."+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(MainActivity.this, "Something went wrong...." + e.getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         });
+                            }
+                        });
                     }
                 });
-            }
-        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 200 && resultCode == RESULT_OK){
+        if (requestCode == 200 && resultCode == RESULT_OK) {
             filePath = data.getData();
-            try{
+            try {
                 InputStream inputStream = getContentResolver().openInputStream(filePath);
-                bitmap= BitmapFactory.decodeStream(inputStream);
+                bitmap = BitmapFactory.decodeStream(inputStream);
                 img1.setImageBitmap(bitmap);
                 uploadEvent();
-            }catch (Exception ex)
-            {
+            } catch (Exception ex) {
 
             }
         }
     }
-//User Image
+
+    //User Image
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
